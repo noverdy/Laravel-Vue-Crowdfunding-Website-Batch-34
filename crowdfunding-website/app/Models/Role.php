@@ -11,6 +11,7 @@ class Role extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+    public $incrementing = false;
 
     protected static function boot()
     {

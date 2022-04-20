@@ -22,7 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'username',
-        'role_id'
+        'role_id',
+        'email_verified_at',
+        'password'
     ];
 
     /**
@@ -39,6 +41,8 @@ class User extends Authenticatable
      */
     protected $casts = [];
 
+    public $incrementing = false;
+
     protected static function boot()
     {
         parent::boot();
@@ -53,5 +57,15 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function otpCode()
+    {
+        return $this->hasOne(OtpCode::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role->name === 'admin';
     }
 }
