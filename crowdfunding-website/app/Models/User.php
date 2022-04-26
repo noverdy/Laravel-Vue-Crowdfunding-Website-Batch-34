@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -24,7 +26,8 @@ class User extends Authenticatable
         'username',
         'role_id',
         'email_verified_at',
-        'password'
+        'password',
+        'photo_profile'
     ];
 
     /**
@@ -56,6 +59,28 @@ class User extends Authenticatable
         });
     }
 
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -69,5 +94,20 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role->name === 'admin';
+    }
+
+    public function generate_otp_code()
+    {
+        do {
+            $random = mt_rand(100000, 999999);
+            $check = OtpCode::where('otp', $random)->first();
+        } while ($check);
+
+        $now = Carbon::now();
+
+        $otp_code = OtpCode::updateOrCreate(
+            ['user_id' => $this->id],
+            ['otp' => $random, 'valid_until' => $now->addMinutes(5)]
+        );
     }
 }
