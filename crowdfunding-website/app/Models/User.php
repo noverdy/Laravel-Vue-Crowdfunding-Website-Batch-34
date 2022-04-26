@@ -41,6 +41,8 @@ class User extends Authenticatable
      */
     protected $casts = [];
 
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
     public $incrementing = false;
 
     protected static function boot()

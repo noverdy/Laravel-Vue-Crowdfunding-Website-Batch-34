@@ -10,6 +10,8 @@ class OtpCode extends Model
     use HasFactory;
 
     protected $fillable = ['otp', 'user_id', 'valid_until'];
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
     public $incrementing = false;
 
     public function user()
