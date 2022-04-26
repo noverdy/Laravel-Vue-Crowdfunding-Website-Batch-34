@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\OtpRequestEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
@@ -22,7 +23,10 @@ class RegisterController extends Controller
             'name' => 'required'
         ]);
         $validatedData['role_id'] = Role::all()->where('name', 'user')->first()->id;
+
         $user = User::create($validatedData);
+
+        event(new OtpRequestEvent($user));
 
         $data['user'] = $user;
 
