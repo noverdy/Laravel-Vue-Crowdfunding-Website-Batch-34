@@ -73,4 +73,4 @@ console.log(combined)
 
 const planet = "earth"
 const view = "glass"
-var before = `Lorem ${view} dolor sit amet, 'consectetur adipiscing elit, ${planet}`
+var before = `Lorem ${view} dolor sit amet, consectetur adipiscing elit, ${planet}`
