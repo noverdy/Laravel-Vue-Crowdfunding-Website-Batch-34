@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Ajax</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #form {
+            background-color: #ddd;
+            display: inline-block;
+            padding: 0 15px;
+            margin-bottom: 20px;
+        }
+
+        #form>* {
+            display: block;
+            margin: 15px 0;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid;
+        }
+
+        th,
+        td {
+            padding: 5px 30px;
+        }
+
+        table img {
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <form @submit.prevent="addUser" id="form">
+            <input type="text" name="name" v-model="name" placeholder="Nama" required>
+            <input type="text" name="address" v-model="address" placeholder="Alamat" required>
+            <input type="tel" name="no_hp" v-model="no_hp" placeholder="Nomor HP" required>
+            <div v-if="idEdit">
+                <button type="button" @click="updateUser(idEdit)">Update</button>
+                <button type="button" @click="clearForm()">Cancel</button>
+            </div>
+            <div v-else>
+                <button type="submit">Submit</button>
+            </div>
+            <ul v-if="errors.length">
+                Error:
+                <li v-for="error in errors">
+                    {{ error }}
+                </li>
+            </ul>
+        </form>
+
+        <form id="photoForm" hidden>
+            <input type="file" name="photo_profile" id="photoButton" @change="uploadPhoto(idUpload)">
+        </form>
+
+        <table v-if="users.length">
+            <tr>
+                <th>Foto Profil</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Nomor HP</th>
+                <th>Actions</th>
+            </tr>
+            <tr v-for="user in users">
+                <th>
+                    <img :src="getUserProfilePicture(user)">
+                </th>
+                <td>{{ user.name }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.no_hp }}</td>
+                <td>
+                    <button @click="editUser(user)">Edit</button>
+                    <button @click="deleteUser(user.id)">Hapus</button>
+                    <button @click="selectPhoto(user.id)">Upload Foto</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: '',
+                address: '',
+                no_hp: '',
+                users: [],
+                errors: [],
+                progresses: {},
+                idEdit: null,
+                idUpload: null
+            },
+            methods: {
+                clearForm() {
+                    this.name = ''
+                    this.address = ''
+                    this.no_hp = ''
+                    this.idEdit = null
+                },
+
+                getUserProfilePicture(user) {
+                    return user.photo_profile ?
+                        'http://demo-api-vue.sanbercloud.com' + user.photo_profile :
+                        'https://via.placeholder.com/320x180.jpg'
+                },
+
+                validateForm(form) {
+                    const errors = []
+
+                    const noHpIndoRegex =
+                        /^(?:\+62|\(0\d{2,3}\)|0)\s?(?:361|8[17]\s?\d?)?(?:[ -]?\d{3,4}){2,3}$/
+
+                    if (form.name.value.length === 0) {
+                        errors.push('Tolong masukkan nama yang valid.')
+                    }
+
+                    if (form.address.value.length === 0) {
+                        errors.push('Tolong masukkan alamat yang valid.')
+                    }
+
+                    if (!noHpIndoRegex.test(form.no_hp.value)) {
+                        errors.push('Tolong masukkan nomor HP yang valid.')
+                    }
+                    this.errors = errors
+
+                    return errors.length === 0
+                },
+
+                addUser(e) {
+                    if (!this.validateForm(e.srcElement)) return
+
+                    const config = {
+                        method: 'POST',
+                        url: 'http://demo-api-vue.sanbercloud.com/api/member',
+                        data: new FormData(e.srcElement)
+                    }
+
+                    axios(config)
+                        .then((response) => {
+                            this.fetchAllUsers()
+                            this.clearForm()
+                        }).catch((error) => {
+                            console.log(error)
+                        })
+                },
+
+                editUser(user) {
+                    this.idEdit = user.id
+                    this.name = user.name
+                    this.address = user.address
+                    this.no_hp = user.no_hp
+                },
+
+                updateUser(id) {
+                    const form = document.getElementById('form')
+                    if (!this.validateForm(form)) return
+
+                    const config = {
+                        method: 'POST',
+                        url: `http://demo-api-vue.sanbercloud.com/api/member/${id}`,
+                        params: {
+                            _method: 'PUT'
+                        },
+                        data: new FormData(form),
+                    }
+
+                    axios(config)
+                        .then((response) => {
+                            this.fetchAllUsers()
+                            this.clearForm()
+                        }).catch((error) => {
+                            console.log(error)
+                        })
+                },
+
+                deleteUser(id) {
+                    const config = {
+                        method: 'POST',
+                        url: `http://demo-api-vue.sanbercloud.com/api/member/${id}`,
+                        params: {
+                            _method: 'DELETE'
+                        }
+                    }
+
+                    axios(config)
+                        .then((response) => {
+                            this.fetchAllUsers()
+                        }).catch((error) => {
+                            console.log(error)
+                        })
+                },
+
+                selectPhoto(id) {
+                    this.idUpload = id
+                    document.getElementById('photoButton').click()
+                },
+
+                uploadPhoto(id) {
+                    const config = {
+                        method: 'POST',
+                        url: `http://demo-api-vue.sanbercloud.com/api/member/${id}/upload-photo-profile`,
+                        data: new FormData(document.getElementById('photoForm')),
+                    }
+
+                    axios(config)
+                        .then((response) => {
+                            this.fetchAllUsers()
+                            this.clearForm()
+                        }).catch((error) => {
+                            console.log(error)
+                        })
+                },
+
+                fetchAllUsers() {
+                    const config = {
+                        method: 'GET',
+                        url: 'http://demo-api-vue.sanbercloud.com/api/member',
+                    }
+
+                    axios(config)
+                        .then((response) => {
+                            this.users = response.data.members
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                }
+            },
+            created() {
+                this.fetchAllUsers()
+            }
+        })
+    </script>
+</body>
+
+</html>
