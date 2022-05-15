@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,19 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__ . '/auth.php';
-
-Route::get('/route-1', function () {
-    return view('route', ['message' => 'Anda bisa mengakses laman ini karena telah melakukan verifikasi Email']);
-})->middleware('verifiedemail');
-
-Route::get('/route-2', function () {
-    return view('route', ['message' => 'Anda bisa mengakses laman ini karena Anda adalah Admin dan telah melakukan verifikasi Email']);
-})->middleware(['admin', 'verifiedemail']);
+require __DIR__.'/auth.php';
