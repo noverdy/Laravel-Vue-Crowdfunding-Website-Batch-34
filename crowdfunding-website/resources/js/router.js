@@ -1,4 +1,3 @@
-import * as Vue from 'vue'
 import {
     createRouter,
     createWebHistory
