@@ -8,14 +8,7 @@
                     v-for="campaign in campaigns"
                     :key="`campaign-` + campaign.id"
                 >
-                    <v-card :to="`/campaign/` + campaign.id">
-                        <v-img :src="campaign.image" class="text-white">
-                            <v-card-title
-                                class="fill-height align-end"
-                                v-text="campaign.title"
-                            ></v-card-title>
-                        </v-img>
-                    </v-card>
+                    <campaign-item :campaign="campaign"></campaign-item>
                 </div>
             </v-layout>
             <v-pagination

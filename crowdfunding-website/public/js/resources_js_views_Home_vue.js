@@ -77,15 +77,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_v_btn = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-btn");
 
-  var _component_v_card_title = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-card-title");
-
-  var _component_v_img = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-img");
-
-  var _component_v_card = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-card");
+  var _component_campaign_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("campaign-item");
 
   var _component_v_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-layout");
 
   var _component_v_container = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-container");
+
+  var _component_v_img = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-img");
 
   var _component_v_carousel_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-carousel-item");
 
@@ -122,35 +120,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
               "class": "flex",
               key: "category-" + campaign.id
-            }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_card, {
-              to: "/category/" + campaign.id
-            }, {
-              "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_img, {
-                  src: campaign.image,
-                  "class": "text-white"
-                }, {
-                  "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                    return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_card_title, {
-                      "class": "fill-height align-end",
-                      textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(campaign.title)
-                    }, null, 8
-                    /* PROPS */
-                    , ["textContent"])];
-                  }),
-                  _: 2
-                  /* DYNAMIC */
-
-                }, 1032
-                /* PROPS, DYNAMIC_SLOTS */
-                , ["src"])];
-              }),
-              _: 2
-              /* DYNAMIC */
-
-            }, 1032
-            /* PROPS, DYNAMIC_SLOTS */
-            , ["to"])]);
+            }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_campaign_item, {
+              campaign: campaign
+            }, null, 8
+            /* PROPS */
+            , ["campaign"])]);
           }), 128
           /* KEYED_FRAGMENT */
           ))];
@@ -158,7 +132,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Template Books "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_btn, {
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Template Blogs "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_btn, {
         small: "",
         variant: "text",
         to: "/blogs",

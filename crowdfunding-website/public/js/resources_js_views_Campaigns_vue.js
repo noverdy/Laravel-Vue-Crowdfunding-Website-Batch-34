@@ -60,11 +60,7 @@ var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_v_card_title = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-card-title");
-
-  var _component_v_img = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-img");
-
-  var _component_v_card = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-card");
+  var _component_campaign_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("campaign-item");
 
   var _component_v_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-layout");
 
@@ -82,35 +78,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
               "class": "flex xs6",
               key: "campaign-" + campaign.id
-            }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_card, {
-              to: "/campaign/" + campaign.id
-            }, {
-              "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_img, {
-                  src: campaign.image,
-                  "class": "text-white"
-                }, {
-                  "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                    return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_card_title, {
-                      "class": "fill-height align-end",
-                      textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(campaign.title)
-                    }, null, 8
-                    /* PROPS */
-                    , ["textContent"])];
-                  }),
-                  _: 2
-                  /* DYNAMIC */
-
-                }, 1032
-                /* PROPS, DYNAMIC_SLOTS */
-                , ["src"])];
-              }),
-              _: 2
-              /* DYNAMIC */
-
-            }, 1032
-            /* PROPS, DYNAMIC_SLOTS */
-            , ["to"])]);
+            }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_campaign_item, {
+              campaign: campaign
+            }, null, 8
+            /* PROPS */
+            , ["campaign"])]);
           }), 128
           /* KEYED_FRAGMENT */
           ))];
