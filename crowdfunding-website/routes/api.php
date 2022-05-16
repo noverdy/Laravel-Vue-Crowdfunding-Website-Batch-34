@@ -49,6 +49,7 @@ Route::group([
     Route::get('/random/{count}', [CampaignController::class, 'random']);
     Route::post('/store', [CampaignController::class, 'store']);
     Route::get('/', [CampaignController::class, 'index']);
+    Route::get('/{id}', [CampaignController::class, 'detail']);
 });
 
 Route::group([
