@@ -93,7 +93,7 @@
 
         <!-- Footer -->
         <v-card>
-            <v-footer app>
+            <v-footer app class="bg-grey-lighten-3">
                 <v-card-text class="text-center">
                     &copy; {{ new Date().getFullYear() }} -
                     <strong>SanbercodeApp</strong>
@@ -110,6 +110,7 @@ export default {
         menus: [
             { title: "Home", icon: "mdi-home", route: "/" },
             { title: "Campaigns", icon: "mdi-hand-heart", route: "/campaigns" },
+            { title: "Blogs", icon: "mdi-book", route: "/blogs" },
         ],
         guest: false,
     }),

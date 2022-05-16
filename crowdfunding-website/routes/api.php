@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,4 +40,20 @@ Route::group([
 ], function () {
     Route::get('/show', [ProfileController::class, 'show']);
     Route::post('/update', [ProfileController::class, 'update']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'campaign',
+], function () {
+    Route::get('/random/{count}', [CampaignController::class, 'random']);
+    Route::post('/store', [CampaignController::class, 'store']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'blog',
+], function () {
+    Route::get('/random/{count}', [BlogController::class, 'random']);
+    Route::post('/store', [BlogController::class, 'store']);
 });
