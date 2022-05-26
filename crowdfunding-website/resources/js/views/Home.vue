@@ -9,7 +9,6 @@
             </div>
             <v-layout wrap>
                 <div
-                    class="flex"
                     v-for="campaign in campaigns"
                     :key="`category-` + campaign.id"
                 >

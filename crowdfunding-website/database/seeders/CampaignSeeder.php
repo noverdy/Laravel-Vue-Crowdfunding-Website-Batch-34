@@ -15,6 +15,6 @@ class CampaignSeeder extends Seeder
      */
     public function run()
     {
-        Campaign::factory(10)->create();
+        Campaign::factory(20)->create();
     }
 }

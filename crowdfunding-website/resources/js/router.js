@@ -25,6 +25,11 @@ const routes = [{
         component: () => import('./views/Campaign.vue')
     },
     {
+        path: '/auth/social/:provider/callback',
+        name: 'social',
+        component: () => import('./views/Social.vue')
+    },
+    {
         path: '/blogs',
         name: 'blogs',
         component: () => import('./views/Blogs.vue')

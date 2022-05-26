@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegenerateOtpCodeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\UpdatePasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BlogController;
@@ -40,6 +41,9 @@ Route::group([
     Route::post('/login', LoginController::class);
     Route::post('/logout', LogoutController::class)->middleware('auth:api');
     Route::post('/check-token', CheckTokenController::class)->middleware('auth:api');
+
+    Route::get('/social/{provider}', [SocialiteController::class, 'redirectToProvider']);
+    Route::get('/social/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
 });
 
 

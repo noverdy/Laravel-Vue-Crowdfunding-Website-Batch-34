@@ -1,6 +1,9 @@
 <template>
-    <div>
-        <v-card :to="`/campaign/` + campaign.id">
+    <div class="mx-1">
+        <v-card
+            :to="`/campaign/` + campaign.id"
+            style="background: #fafafa; border: 1px solid #f0f0f0"
+        >
             <v-img :src="campaign.image" class="text-white" height="200px">
                 <v-card-title
                     class="fill-height align-end"
@@ -18,8 +21,9 @@
 
             <v-card-actions>
                 <v-icon>mdi-cash</v-icon>
-                <span>Rp {{ campaign.required.toLocaleString("id-ID") }} </span>
-                <v-spacer></v-spacer>
+                <span style="margin-end: 1rem"
+                    >Rp {{ campaign.required.toLocaleString("id-ID") }}
+                </span>
                 <span>{{ progress }}%</span>
             </v-card-actions>
         </v-card>

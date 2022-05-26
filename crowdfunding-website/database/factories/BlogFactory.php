@@ -17,7 +17,9 @@ class BlogFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->word(),
+            'description' => $this->faker->paragraph(),
+            'image' => 'https://source.unsplash.com/400x200?sig=' . $this->faker->randomNumber(3),
         ];
     }
 }

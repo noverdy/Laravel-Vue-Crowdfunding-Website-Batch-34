@@ -32,7 +32,6 @@
             <v-container class="ma-0 pa-0" grid-list-sm>
                 <v-layout wrap>
                     <div
-                        style="display: flex"
                         v-for="campaign in campaigns"
                         :key="`campaign-` + campaign.id"
                     >
@@ -68,7 +67,6 @@ export default {
                     .then((response) => {
                         let { data } = response.data;
                         this.campaigns = data.campaigns;
-                        console.log(this.campaigns);
                     })
                     .catch((error) => {
                         console.log(error);

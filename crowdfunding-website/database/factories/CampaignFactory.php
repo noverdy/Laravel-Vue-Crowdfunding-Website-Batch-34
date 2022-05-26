@@ -16,13 +16,14 @@ class CampaignFactory extends Factory
      */
     public function definition()
     {
+        $required = $this->faker->randomNumber(4) * 1000;
         return [
-            'title' => $this->faker->sentence(2),
+            'title' => $this->faker->word(),
             'description' => $this->faker->paragraph(),
-            'image' => 'https://source.unsplash.com/200x200?sig=18128' . $this->faker->randomNumber(3),
+            'image' => 'https://source.unsplash.com/200x200?sig=' . $this->faker->randomNumber(3),
             'address' => $this->faker->address(),
-            'required' => $this->faker->randomNumber(4, true) * 1000,
-            'collected' => $this->faker->randomNumber(7)
+            'required' => $required,
+            'collected' => min([$required, $this->faker->randomNumber(7)]),
         ];
     }
 }

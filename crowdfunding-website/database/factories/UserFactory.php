@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'email_verified_at' => $this->faker->randomElement([now(), null]),
             'role_id' => Role::all()->random()->id,
             'username' => $this->faker->userName(),
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('password'),
         ];
     }
 
