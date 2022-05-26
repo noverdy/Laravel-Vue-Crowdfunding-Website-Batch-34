@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\Auth\CheckTokenController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegenerateOtpCodeController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\UpdatePasswordController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +38,8 @@ Route::group([
     Route::post('/verification', VerificationController::class);
     Route::post('/update-password', UpdatePasswordController::class);
     Route::post('/login', LoginController::class);
+    Route::post('/logout', LogoutController::class)->middleware('auth:api');
+    Route::post('/check-token', CheckTokenController::class)->middleware('auth:api');
 });
 
 
@@ -50,6 +59,7 @@ Route::group([
     Route::post('/store', [CampaignController::class, 'store']);
     Route::get('/', [CampaignController::class, 'index']);
     Route::get('/{id}', [CampaignController::class, 'detail']);
+    Route::get('/search/{keyword}', [CampaignController::class, 'search']);
 });
 
 Route::group([

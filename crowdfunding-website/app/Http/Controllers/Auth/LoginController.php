@@ -21,7 +21,7 @@ class LoginController extends Controller
         ]);
 
         if (!$token = auth()->attempt($validatedData)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Email atau Password tidak ditemukan'], 401);
         }
 
         $data['token'] = $token;

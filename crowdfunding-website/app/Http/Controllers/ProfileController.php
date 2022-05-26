@@ -27,7 +27,7 @@ class ProfileController extends Controller
             $photo_profile = $request->file('photo_profile');
             $photo_profile_extension = $photo_profile->getClientOriginalExtension();
             $photo_profile_name = Str::slug($user->name, '-') . '-' . $user->id . '.' . $photo_profile_extension;
-            $photo_profile_folder = '/photos/users/photo-profile';
+            $photo_profile_folder = '/photos/users/photo-profile/';
             $photo_profile_location = $photo_profile_folder . $photo_profile_name;
 
             try {
